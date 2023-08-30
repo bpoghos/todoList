@@ -1,0 +1,22 @@
+.header h1 {
+    padding: 20px;
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff
+}
+.header{
+    border-radius: 5px 5px 0 0;
+    background-color: rgb(55, 55, 118);
+    display: flex;
+    justify-content: center;
+}
+.header span{
+    display: flex;
+}
+.header p {
+    margin: 40px 0 0 10px;
+    display: block;
+    font-size: smaller;
+    color: #fff;
+}
