@@ -2,7 +2,7 @@ import './add-item.css'
 import { Component } from 'react';
 
 
-class AddItem extends Component {
+export default class AddItem extends Component {
   render(){
   return (
     <div className='additem'>
@@ -13,4 +13,3 @@ class AddItem extends Component {
 }
 }
 
-export default AddItem;

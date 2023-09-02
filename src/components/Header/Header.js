@@ -2,7 +2,7 @@ import './header.css';
 import { Component } from 'react'
 
 
-class Header extends Component {
+export default class Header extends Component {
 
   render() {
     const { done, important } = this.props
@@ -10,9 +10,9 @@ class Header extends Component {
     return (
       <div className='header'>
         <h1>My Todo List</h1>
-        <span>
-          <p>Done: {done}</p>
-          <p>Important: {important}</p>
+        <span className='header-info'>
+          <span className='header-done'>Done: {done}</span>
+          <span className='header-done'>Important: {important}</span>
         </span>
       </div>
     );
@@ -21,4 +21,3 @@ class Header extends Component {
 
 
 
-export default Header;

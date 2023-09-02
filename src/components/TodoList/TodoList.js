@@ -3,7 +3,7 @@ import "./todo-list.css";
 import { Component } from "react";
 
 
-class TodoList extends Component {
+export default class TodoList extends Component {
 
   render() {
     const { items } = this.props
@@ -18,4 +18,4 @@ class TodoList extends Component {
   }
 }
 
-export default TodoList;
+
