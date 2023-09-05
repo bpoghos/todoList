@@ -1,15 +1,34 @@
 import './add-item.css'
 import { Component } from 'react';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+
+
 
 
 export default class AddItem extends Component {
-  render(){
-  return (
-    <div className='additem'>
-      <input type="text" placeholder="Item text..." />
-      <button>Add item</button>
-    </div>
-  )
-}
+
+  state = {
+    inputValue: ''
+  }
+
+  onInputChange = (event) => {
+    this.setState({
+      inputValue: event.target.value
+    })
+  }
+
+  onBtnClick = () => {
+    this.props.onAddItem(this.state.inputValue);
+    this.setState({inputValue: ''})
+  }
+
+  render() {
+    return (
+      <div className='additem'>
+        <input type="text" value={this.state.inputValue} placeholder="Item text..." onChange={this.onInputChange} />
+        <button onClick={this.onBtnClick}>Add item</button>
+      </div>
+    )
+  }
 }
 

@@ -6,8 +6,8 @@ export default class TodoListItem extends Component {
 
   state = {
     isDone: false,
-    isImportant: this.props.important
-
+    isImportant: this.props.important,
+    isRemove: false
   }
 
   onDone = () => {
@@ -15,6 +15,7 @@ export default class TodoListItem extends Component {
       isDone: !this.state.isDone
     })
   }
+
   onImportant = () => {
     this.setState({
       isImportant: !this.state.isImportant
@@ -22,10 +23,10 @@ export default class TodoListItem extends Component {
   }
 
   render() {
-    const { text } = this.props
+    const { text, onRemove, id } = this.props
     const { isDone, isImportant } = this.state
 
-
+    
 
     const textStyle = {
       textDecoration: isDone ? 'line-through' : 'none',
@@ -42,7 +43,7 @@ export default class TodoListItem extends Component {
         <span className='item-btns'>
           <button className='item-btn-done' onClick={this.onDone}><FaCheck /></button>
           <button className='item-btn-important' onClick={this.onImportant}><FaInfo /></button>
-          <button className='item-btn-remove'><FaTrash /></button>
+          <button className='item-btn-remove' onClick={() => onRemove(id)}><FaTrash /></button>
         </span>
       </li>
     );
