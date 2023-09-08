@@ -9,7 +9,7 @@ export default class Search extends Component {
         <input type="text" placeholder="Type text for search..." />
         <button className='search-btn-all'>All</button>
         <button className='search-btn-done'>Done</button>
-        <button className='search-btn-important'>Important</button>
+        <button className='search-btn-isImportant'>isImportant</button>
       </div>
     );
   }

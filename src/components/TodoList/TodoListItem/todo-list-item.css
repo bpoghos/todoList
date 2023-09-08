@@ -41,3 +41,10 @@
 .item-btns button:hover{
     background-color: #edffdc;
 }
+
+.input-text{
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+    border: none;
+}
