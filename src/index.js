@@ -4,16 +4,18 @@ import Header from "./components/Header";
 import Search from "./components/Search";
 import TodoList from "./components/TodoList";
 import AddItem from "./components/AddItem";
+import { validateInput } from './utils/validator'
 import "./index.css";
+import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 
 class App extends Component {
   state = {
     items: [
-      { text: "Learn JS", isImportant: true, id: 1, isEdit: false, isDone: false },
-      { text: "Drink Coffee", isImportant: false, id: 2, isEdit: false, isDone: false },
-      { text: "Learn React", isImportant: false, id: 3, isEdit: false, isDone: false },
-      { text: "Learn TypeScript", isImportant: true, id: 4, isEdit: false, isDone: false },
-      { text: "Learn Node.js", isImportant: false, id: 5, isEdit: false, isDone: false },
+      { text: "Learn JS", isImportant: true, id: 1, isEdit: false, isDone: false, isError: false},
+      { text: "Drink Coffee", isImportant: false, id: 2, isEdit: false, isDone: false, isError: false},
+      { text: "Learn React", isImportant: false, id: 3, isEdit: false, isDone: false, isError: false},
+      { text: "Learn TypeScript", isImportant: true, id: 4, isEdit: false, isDone: false, isError: false},
+      { text: "Learn Node.js", isImportant: false, id: 5, isEdit: false, isDone: false, isError: false },
     ],
   }
 
@@ -31,10 +33,14 @@ class App extends Component {
   }
 
   onEdit = (id, newText) => {
-    this.setState((prevState) => {
-      const updatedItems = prevState.items.map((item) => {
+    this.setState(({items}) => {
+      const updatedItems = items.map((item) => {
         if (item.id === id) {
-          return { ...item, isEdit: !item.isEdit, text: newText };
+          if(!this.state.isEdit && validateInput(newText)){
+            return { ...item, isEdit: !item.isEdit, text: newText };
+          }else {
+            return { ...item, isError: true };
+          }
         }
         return item;
       });

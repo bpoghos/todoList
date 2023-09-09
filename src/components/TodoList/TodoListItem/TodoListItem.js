@@ -1,5 +1,5 @@
 import './todo-list-item.css';
-import { FaTrash, FaInfo, FaCheck, FaPenToSquare } from 'react-icons/fa6'
+import { FaTrash, FaInfo, FaCheck, FaPenToSquare, FaCircleCheck } from 'react-icons/fa6'
 import { Component } from 'react';
 
 export default class TodoListItem extends Component {
@@ -19,7 +19,7 @@ export default class TodoListItem extends Component {
   }
 
   render() {
-    const { text, onEdit, isEdit, onImportant, isImportant, onDone, isDone} = this.props
+    const { text, onEdit, isEdit, onImportant, isImportant, onDone, isDone, isError} = this.props
 
 
 
@@ -35,8 +35,13 @@ export default class TodoListItem extends Component {
        {!isEdit ? <span className='item-text' style={textStyle} onClick={this.onDone}>
           {text}</span> : <input className='input-text'  value={this.state.title} onChange={(e) => this.onHandleChange(e.target.value)}/>}
 
+
+          
+
         <span className='item-btns'>
-          <button className='item-btn-edit'onClick={() => onEdit(this.props.id, this.state.title)}><FaPenToSquare /></button>
+          <button className='item-btn-edit'onClick={() => onEdit(this.props.id, this.state.title)}>
+            {isEdit ? <FaCircleCheck/> : <FaPenToSquare />}
+            </button>
           <button className='item-btn-done' onClick={() => onDone(this.props.id)}><FaCheck /></button>
           <button className='item-btn-isImportant' onClick={() => onImportant(this.props.id)}><FaInfo /></button>
           <button className='item-btn-remove' onClick={this.onDelete}><FaTrash /></button>
