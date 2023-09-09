@@ -20,31 +20,22 @@ export default class AddItem extends Component {
   }
 
   onBtnClick = () => {
-    this.setState(({inputValue}) => {
-      if(!validateInput(inputValue)){
-        return {
-          isInputError: true
-        }
-      }else{
-        this.props.onAddItem(this.state.inputValue);
-        this.setState(() => {
-          return{
-          inputValue: '', 
-          isInputError: false
-          }
-        })
-      }
+    if (!validateInput(this.state.inputValue)) {
+      this.setState({ isInputError: true })
+      return
+    }
 
-    })
-
-   
-    
+    this.setState({ isInputError: false })
+    this.props.onAddItem(this.state.inputValue);
+    this.setState({ inputValue: '' })
   }
 
-  
+
+
+
 
   render() {
-    const {isInputError} = this.state
+    const { isInputError } = this.state
 
     return (
       <div className='additem'>

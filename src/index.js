@@ -19,6 +19,15 @@ class App extends Component {
     ],
   }
 
+
+  handelSearch = (text) => {
+    // this.setState(({ items }) => {
+      const found = this.state.items.includes((item) => item === text)
+      console.log(found);
+    // })
+  }
+
+
   deleteItem = (id) => {
     this.setState(({ items }) => {
       const idx = items.findIndex((el) => el.id === id)
@@ -97,7 +106,7 @@ class App extends Component {
     return (
       <div className="app">
         <Header done={8} isImportant={23} />
-        <Search />
+        <Search items={items} handelSearch={this.handelSearch} />
         <TodoList items={items} deleteItem={this.deleteItem} onEdit={this.onEdit} onImportant={this.onImportant} onDone={this.onDone}/>
         <AddItem onAddItem={this.onAddItem} />
       </div>
