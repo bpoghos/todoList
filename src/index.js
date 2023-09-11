@@ -4,28 +4,57 @@ import Header from "./components/Header";
 import Search from "./components/Search";
 import TodoList from "./components/TodoList";
 import AddItem from "./components/AddItem";
-import { validateInput } from './utils/validator'
 import "./index.css";
-import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 
 class App extends Component {
   state = {
     items: [
-      { text: "Learn JS", isImportant: true, id: 1, isEdit: false, isDone: false, isError: false},
-      { text: "Drink Coffee", isImportant: false, id: 2, isEdit: false, isDone: false, isError: false},
-      { text: "Learn React", isImportant: false, id: 3, isEdit: false, isDone: false, isError: false},
-      { text: "Learn TypeScript", isImportant: true, id: 4, isEdit: false, isDone: false, isError: false},
-      { text: "Learn Node.js", isImportant: false, id: 5, isEdit: false, isDone: false, isError: false },
-    ],
+      { text: "Learn JS", isImportant: true, id: 1, isDone: false },
+      { text: "Drink Coffee", isImportant: false, id: 2, isDone: true },
+      { text: "Learn React", isImportant: false, id: 3, isDone: false },
+      { text: "Learn TypeScript", isImportant: true, id: 4, isDone: false },
+      { text: "Learn Node.js", isImportant: false, id: 5, isDone: true },
+    ]
+    
   }
 
+  
 
-  handelSearch = (text) => {
-    // this.setState(({ items }) => {
-      const found = this.state.items.includes((item) => item === text)
-      console.log(found);
-    // })
+
+  handelSearch = (filteredItems) => {
+    this.setState(({items}) => {
+      return{
+        items: filteredItems
+      }
+    })
+  };
+
+  handleAll = (filteredItems) => {
+    this.setState(({items}) => {
+      return{
+        items: filteredItems
+      }
+    })
+  };
+
+
+  handleAllDone = (filterDone) => {
+    this.setState(({items}) => {
+      return {
+        items: filterDone
+      }
+    })
   }
+
+  handleAllImportant = (filterImportant) => {
+    this.setState(({items}) => {
+      return {
+        items: filterImportant
+      }
+    })
+  }
+  
+  
 
 
   deleteItem = (id) => {
@@ -41,21 +70,7 @@ class App extends Component {
     })
   }
 
-  onEdit = (id, newText) => {
-    this.setState(({items}) => {
-      const updatedItems = items.map((item) => {
-        if (item.id === id) {
-          if(!this.state.isEdit && validateInput(newText)){
-            return { ...item, isEdit: !item.isEdit, text: newText };
-          }else {
-            return { ...item, isError: true };
-          }
-        }
-        return item;
-      });
-      return { items: updatedItems };
-    });
-  }
+
 
 
   onImportant = (id) => {
@@ -66,7 +81,7 @@ class App extends Component {
         }
         return item;
       });
-      
+
 
       return { items: updatedItems };
     });
@@ -99,15 +114,23 @@ class App extends Component {
     })
   }
 
+ 
+
+
+
 
   render() {
     const { items } = this.state
 
+
+
+
+
     return (
       <div className="app">
         <Header done={8} isImportant={23} />
-        <Search items={items} handelSearch={this.handelSearch} />
-        <TodoList items={items} deleteItem={this.deleteItem} onEdit={this.onEdit} onImportant={this.onImportant} onDone={this.onDone}/>
+        <Search items={items} handelSearch={this.handelSearch} handleAll={this.handleAll} handleAllDone={this.handleAllDone} handleAllImportant={this.handleAllImportant}/>
+        <TodoList  items={items} deleteItem={this.deleteItem} onEdit={this.onEdit} onImportant={this.onImportant} onDone={this.onDone} />
         <AddItem onAddItem={this.onAddItem} />
       </div>
     );

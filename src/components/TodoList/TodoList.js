@@ -7,9 +7,9 @@ export default class TodoList extends Component {
 
   
   render() {
-    const { items, deleteItem, onEdit, onImportant, onDone } = this.props
+    const { items, deleteItem, onImportant, onDone } = this.props
 
-    const data = items.map(({ text, id, isEdit, isImportant, isDone, isError}) => {
+    const data = items.map(({ text, id, isImportant, isDone, isError}) => {
       return (<TodoListItem 
         text={text} 
         isImportant={isImportant} 
@@ -17,8 +17,6 @@ export default class TodoList extends Component {
         deleteItem={deleteItem} 
         id={id} 
         items={items} 
-        isEdit={isEdit}
-        onEdit={onEdit}
         onDone={onDone}
         isDone={isDone}
         onImportant={onImportant}

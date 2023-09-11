@@ -24,10 +24,8 @@ export default class AddItem extends Component {
       this.setState({ isInputError: true })
       return
     }
-
-    this.setState({ isInputError: false })
     this.props.onAddItem(this.state.inputValue);
-    this.setState({ inputValue: '' })
+    this.setState({ inputValue: '', isInputError: false })
   }
 
 
