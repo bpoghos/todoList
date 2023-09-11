@@ -15,27 +15,20 @@ export default class TodoListItem extends Component {
     this.props.deleteItem(this.props.id)
   }
 
-  // onEdit = (id, newText) => {
-  //   this.setState(({items}) => {
-  //     const updatedItems = items.map((item) => {
-  //       if (item.id === id) {
-  //         if(!this.state.isEdit && validateInput(newText)){
-  //           return { ...item, isEdit: !item.isEdit, text: newText };
-  //         }else {
-  //           return { ...item, isError: true };
-  //         }
-  //       }
-  //       return item;
-  //     });
-  //     return { items: updatedItems };
-  //   });
-  // }
 
-  onEdit = (isEdit) => {
-    this.setState({ isEdit: !isEdit })
+  onEdit = () => {
+    this.setState(({isEdit, text}) => {
+      if(isEdit && !validateInput(text)) {
+        return {
+          isError: true
+        }
+      }
+      return {
+        isEdit: !isEdit,
+        isError: false
+      }
+    })
   }
-
-
 
 
   onHandleChange = (event) => {
@@ -57,20 +50,31 @@ export default class TodoListItem extends Component {
       fontWeight: isDone ? 'normal' : (isImportant ? "bold" : 'normal'),
     }
 
+    const inputStyle = {
+      borderColor: isError ? 'red' : '#ccc'
+    }
+
 
     return (
       <li className='list-item' >
-        {!isEdit ? (
-
-          <span
-            className='item-text'
-            style={textStyle}
-            onClick={() => onDone(this.props.id)}>
-            {text} </span>) : (
-          <input
-            className='input-text'
+        {
+        isEdit ? (
+          <div className='item-input-wrapper'>
+            <input
+            className='list-item-edit-input'
+            style={inputStyle}
             value={text}
             onChange={this.onHandleChange} />
+            {
+              isError ? <span className='input-error-message'>Min length is greate 2</span> : null
+  }
+          </div>
+          ) : (
+          <span
+          className='item-text'
+          style={textStyle}
+          onClick={() => onDone(this.props.id)}>
+          {text} </span>
 
         )}
 
