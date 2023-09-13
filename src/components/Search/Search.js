@@ -9,7 +9,8 @@ export default class Search extends Component {
     isAllDone: false,
     isAllImportant: false,
     isError: false,
-    isAll: false
+    isAll: false,
+    term: ''
   }
 
   onAll = () => {
@@ -35,6 +36,14 @@ export default class Search extends Component {
     handleAllImportant(filtered)
   }
 
+  onSearchChange = (e) => {
+    this.setState({
+      term: e.target.value
+    })
+
+    this.props.onSearch(e.target.value)
+  }
+
 
   onAllDone = () => {
     this.setState(({ isAllDone }) => {
@@ -47,19 +56,19 @@ export default class Search extends Component {
     handleAllDone(filtered)
   }
 
-  onQuery = (e) => {
-    this.setState({ query: e.target.value })
+  // onQuery = (e) => {
+  //   this.setState({ query: e.target.value })
 
-    const { items, handelSearch } = this.props
-    const filtered = items.filter(item => item.text.toLowerCase().includes(this.state.query))
-    if (!filtered.length) {
-      this.setState({ isError: true })
-      return
-    }
-    handelSearch(filtered)
-    this.setState({ isError: false })
+  //   const { items, handelSearch } = this.props
+  //   const filtered = items.filter(item => item.text.toLowerCase().includes(this.state.query))
+  //   if (!filtered.length) {
+  //     this.setState({ isError: true })
+  //     return
+  //   }
+  //   handelSearch(filtered)
+  //   this.setState({ isError: false })
 
-  }
+  // }
 
 
   render() {
@@ -76,8 +85,9 @@ export default class Search extends Component {
         }
         <input
           type="text"
+          value={this.state.term}
           placeholder="Type text for search..."
-          onChange={this.onQuery} />
+          onChange={this.onSearchChange} />
 
         <button className='search-btn-all' onClick={this.onAll}>All</button>
         <button className='search-btn-done' onClick={this.onAllDone}>Done</button>

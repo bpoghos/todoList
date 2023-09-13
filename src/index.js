@@ -14,20 +14,31 @@ class App extends Component {
       { text: "Learn React", isImportant: false, id: 3, isDone: false },
       { text: "Learn TypeScript", isImportant: true, id: 4, isDone: false },
       { text: "Learn Node.js", isImportant: false, id: 5, isDone: true },
-    ]
+    ],
+    term: ''
     
   }
 
+  onSearch =(term) => {
+    this.setState({ term })
+  }
   
 
 
-  handelSearch = (filteredItems) => {
-    this.setState(({items}) => {
-      return{
-        items: filteredItems
-      }
+  handelSearch = (items, term) => {
+    if(term.trim().length === 0){
+      return items
+    }
+    
+    return items.filter((item) => {
+      return item.text.toLowerCase().indexOf(term.toLowerCase()) > -1
     })
   };
+
+
+  handelFilter = () => {
+    
+  }
 
   handleAll = (filteredItems) => {
     this.setState(({items}) => {
@@ -120,17 +131,20 @@ class App extends Component {
 
 
   render() {
-    const { items } = this.state
+    const { items, term } = this.state
+    const visibleItems = this.handelSearch(items, term)
 
+    const doneCount = this.state.items.filter((item) => item.isDone).length
+    const importantCount = this.state.items.filter((item) => item.isImportant).length
 
 
 
 
     return (
       <div className="app">
-        <Header done={8} isImportant={23} />
-        <Search items={items} handelSearch={this.handelSearch} handleAll={this.handleAll} handleAllDone={this.handleAllDone} handleAllImportant={this.handleAllImportant}/>
-        <TodoList  items={items} deleteItem={this.deleteItem} onEdit={this.onEdit} onImportant={this.onImportant} onDone={this.onDone} />
+        <Header done={doneCount} isImportant={importantCount} />
+        <Search items={items} onSearch={this.onSearch} handelSearch={this.handelSearch} handleAll={this.handleAll} handleAllDone={this.handleAllDone} handleAllImportant={this.handleAllImportant}/>
+        <TodoList  items={visibleItems} deleteItem={this.deleteItem} onEdit={this.onEdit} onImportant={this.onImportant} onDone={this.onDone} />
         <AddItem onAddItem={this.onAddItem} />
       </div>
     );
