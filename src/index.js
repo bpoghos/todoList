@@ -84,18 +84,40 @@ class App extends Component {
 
 
 
+  // onImportant = (id) => {
+  //   this.setState((prevState) => {
+  //     const updatedItems = prevState.items.map((item) => {
+  //       if (item.id === id) {
+  //         return { ...item, isImportant: !item.isImportant };
+  //       }
+  //       return item;
+  //     });
+
+
+  //     return { items: updatedItems };
+  //   });
+  // }
+
   onImportant = (id) => {
-    this.setState((prevState) => {
-      const updatedItems = prevState.items.map((item) => {
-        if (item.id === id) {
-          return { ...item, isImportant: !item.isImportant };
-        }
-        return item;
-      });
-
-
-      return { items: updatedItems };
-    });
+    this.setState(({ items }) => {
+      const idx = items.findIndex((el) => el.id === id)
+      const newItem = {
+        ...items[idx],
+        isImportant: !items[idx].isImportant
+      }
+      console.log([
+        ...items.slice(0, idx),
+        newItem,
+        ...items.slice(idx + 1)
+      ]);
+      return {
+        items: [
+          ...items.slice(0, idx),
+          newItem,
+          ...items.slice(idx + 1)
+        ]
+      }
+    })
   }
 
 
